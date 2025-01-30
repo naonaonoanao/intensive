@@ -1,8 +1,8 @@
 resume: null
 save_dir: ckpt/
 log_dir: tensorboard/
-gpu: false
-n_gpu: 0
+gpu: true
+n_gpu: null
 metrics:
 - _target_: srcs.model.metric.accuracy
 - _target_: srcs.model.metric.precision

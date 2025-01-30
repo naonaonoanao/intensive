@@ -24,8 +24,8 @@ class ImageClassifier:
             raise IOError(f'The file "{model_fname}" does not exist!')
 
         # Load the model
-        # checkpoint = torch.load(model_fname, map_location=torch.device('cpu'))
-        checkpoint = torch.load(model_fname)
+        checkpoint = torch.load(model_fname, map_location=torch.device('cpu'))
+        # checkpoint = torch.load(model_fname)
         self.model_ = get_mobilenet_model()
         self.model_.load_state_dict(checkpoint['state_dict'])
         # self.model_.load_state_dict(checkpoint)
@@ -54,11 +54,29 @@ class ImageClassifier:
             outputs = self.model_(image_tensors)
         return outputs / TEMPERATURE
 
+    def get_top_n_predictions(self, outputs: torch.Tensor, n: int = 3):
+        label_encode = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9, 'K': 10,
+                        'L': 11, 'M': 12, 'N': 13, 'O': 14, 'P': 15, 'Q': 16, 'R': 17, 'S': 18, 'T': 19, 'U': 20,
+                        'V': 21, 'W': 22, 'X': 23, 'Y': 24, 'Z': 25, 'del': 26, 'nothing': 27, 'space': 28}
+        label_encode = {v: k for k, v in label_encode.items()}
+
+        top_n_probs, top_n_indices = torch.topk(outputs, n)
+        top_n_probs = top_n_probs.squeeze().cpu().numpy()
+        top_n_indices = top_n_indices.squeeze().cpu().numpy()
+
+        top_n_labels = [label_encode[idx] for idx in top_n_indices]
+
+        return list(zip(top_n_labels, top_n_probs))
+
 
 if __name__ == '__main__':
     classifier = ImageClassifier()
     image = cv2.imread('img.png')
     prediction = classifier.predict(image)  # For a single image
-    batch_predictions = classifier.predict_batch([image])  # For a batch of images
-    print(prediction, torch.argmax(prediction, dim=1).item())
-    print(batch_predictions)
+
+    # Get top-3 predictions and their probabilities
+    top_3_predictions = classifier.get_top_n_predictions(prediction, n=3)
+
+    # Output top-3 predictions with their probabilities
+    for label, prob in top_3_predictions:
+        print(f'Predicted label: {label}, Probability: {prob:.4f}')
