@@ -25,7 +25,7 @@ def resave_model_without_omegaconf(input_model_path: str, output_model_path: str
 
 # Пример использования
 if __name__ == "__main__":
-    input_path = "model_resnet.pth"  # Путь к исходной модели
-    output_path = "model_resnet_cleaned.pth"  # Путь для новой модели
+    input_path = "model_sec_best.pth"  # Путь к исходной модели
+    output_path = "model_sec_best_cleaned.pth"  # Путь для новой модели
 
     resave_model_without_omegaconf(input_path, output_path)

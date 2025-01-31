@@ -18,14 +18,14 @@ def get_mobilenet_model(num_classes: int = 29):
 class ImageClassifier:
     def __init__(self):
         self.model_ = None
-        model_fname = os.path.join(os.path.dirname(__file__), 'model_resnet_cleaned.pth')
+        model_fname = os.path.join(os.path.dirname(__file__), 'model_sec_best_cleaned.pth')
         # Check if the model file exists
         if not os.path.isfile(model_fname):
             raise IOError(f'The file "{model_fname}" does not exist!')
 
         # Load the model
-        # checkpoint = torch.load(model_fname, map_location=torch.device('cpu'))
-        checkpoint = torch.load(model_fname)
+        checkpoint = torch.load(model_fname, map_location=torch.device('cpu'))
+        # checkpoint = torch.load(model_fname)
         self.model_ = get_mobilenet_model()
         self.model_.load_state_dict(checkpoint['state_dict'])
         # self.model_.load_state_dict(checkpoint)
