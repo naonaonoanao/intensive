@@ -18,7 +18,7 @@ def get_convnexttiny_model(num_classes: int = 29):
 class ImageClassifier:
     def __init__(self):
         self.model_ = None
-        model_fname = os.path.join(os.path.dirname(__file__), 'model_sec_best_cleaned.pth')
+        model_fname = os.path.join(os.path.dirname(__file__), 'model_convnext_cleaned.pth')
         # Check if the model file exists
         if not os.path.isfile(model_fname):
             raise IOError(f'The file "{model_fname}" does not exist!')
