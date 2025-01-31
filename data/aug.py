@@ -6,11 +6,11 @@ import numpy as np
 from torchvision import transforms
 
 # Указываем путь к датасету
-dataset_path = 'new_sign_language_dataset'
+dataset_path = 'sign_language_dataset'
 
 # Определяем аугментации
 transform = A.Compose([
-    A.Rotate(limit=30, p=0.5),  # Повороты
+    A.Rotate(limit=10, p=0.5),  # Уменьшили угол поворота до 10 градусов
     A.RandomBrightnessContrast(p=0.2),  # Яркость и контраст
     A.RandomGamma(p=0.2),  # Изменение гаммы
     A.ToGray(p=0.1),  # Преобразование в чб

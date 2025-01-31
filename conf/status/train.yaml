@@ -2,7 +2,7 @@
 status: train
 
 trainer:
-  epochs: 10
+  epochs: 7
   logging_step: 100
 
   monitor: min loss/valid

@@ -2,7 +2,7 @@ import os
 import shutil
 import random
 
-dataset = "new_sign_language_dataset/"
+dataset = "sign_language_dataset/"
 dataset_train = "sign_language_dataset_train/"
 dataset_val = "sign_language_dataset_val/"
 dataset_test = "sign_language_dataset_test/"
