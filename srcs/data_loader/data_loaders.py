@@ -11,7 +11,7 @@ class SignDataset(Dataset):
     def __init__(self, paths: List[Path], transform=None):
         self.paths = paths
         self.transform = transform # если есть аугментации
-        labels = sorted(set(str(x).split('/')[-2] for x in paths))
+        labels = sorted(set(str(x).split('\\')[-2] for x in paths))
         self.one_hot_encoding = {label: i for i, label in enumerate(labels)}
 
     def __len__(self):
@@ -38,7 +38,7 @@ class SignDataset(Dataset):
 
         # Чтение изображения
         image = cv2.imread(str(self.paths[idx]))
-        label = str(self.paths[idx]).split('/')[-2]
+        label = str(self.paths[idx]).split('\\')[-2]
 
         image = resize_with_padding(image, (200, 200))
         image = np.transpose(image, (2, 0, 1))

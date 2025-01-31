@@ -147,7 +147,7 @@ hydra:
       hydra/run/dir: job_timestamp
       status: train
       hparams: linear_baseline
-      model: mobilenet
+      model: convnext
       data: sign_train
       hydra/env: default
       hydra/callbacks: null

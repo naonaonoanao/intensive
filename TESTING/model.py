@@ -9,7 +9,7 @@ import torchvision
 TEMPERATURE = 2.344858
 
 
-def get_mobilenet_model(num_classes: int = 29):
+def get_convnexttiny_model(num_classes: int = 29):
     model = torchvision.models.mobilenet_v3_small()
     model.classifier[-1] = torch.nn.Linear(model.classifier[-1].in_features, num_classes)
     return model
@@ -26,7 +26,7 @@ class ImageClassifier:
         # Load the model
         checkpoint = torch.load(model_fname, map_location=torch.device('cpu'))
         # checkpoint = torch.load(model_fname)
-        self.model_ = get_mobilenet_model()
+        self.model_ = get_convnexttiny_model()
         self.model_.load_state_dict(checkpoint['state_dict'])
         # self.model_.load_state_dict(checkpoint)
 
